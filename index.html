@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Among Us - Crewmates and Imposter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #2c2f33;
+      color: white;
+    }
+    .player {
+      margin: 10px 0;
+    }
+    .imposter {
+      color: red;
+      font-weight: bold;
+    }
+    .crewmate {
+      color: lightgreen;
+    }
+    button {
+      background-color: #7289da;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #99aab5;
+    }
+  </style>
+</head>
+<body>
+  <h1>Among Us: Find the Imposter</h1>
+  <p>Click the button to randomly assign crewmates and an imposter!</p>
+
+  <button onclick="assignRoles()">Start Game</button>
+
+  <div id="players" class="players"></div>
+
+  <script>
+    // List of player names
+    const playerNames = [
+      "Red", "Blue", "Green", "Yellow", "Purple", "Black", "White", "Cyan", "Brown", "Pink"
+    ];
+
+    // Function to assign roles randomly
+    function assignRoles() {
+      const playersContainer = document.getElementById('players');
+      playersContainer.innerHTML = ''; // Clear previous output
+
+      // Shuffle player names to randomize order
+      const shuffledPlayers = playerNames.sort(() => 0.5 - Math.random());
+
+      // Pick one random imposter
+      const imposterIndex = Math.floor(Math.random() * shuffledPlayers.length);
+      
+      // Display players and their roles
+      shuffledPlayers.forEach((player, index) => {
+        const playerDiv = document.createElement('div');
+        playerDiv.classList.add('player');
+
+        if (index === imposterIndex) {
+          playerDiv.classList.add('imposter');
+          playerDiv.textContent = `${player} is the Imposter!`;
+        } else {
+          playerDiv.classList.add('crewmate');
+          playerDiv.textContent = `${player} is a Crewmate`;
+        }
+
+        playersContainer.appendChild(playerDiv);
+      });
+    }
+  </script>
+</body>
+</html>
